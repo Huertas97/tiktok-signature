@@ -72,6 +72,13 @@ async function main() {
 
     var total_itemList = [];
 
+
+    var output_dir = './outputs/';
+
+    if (!fs.existsSync(output_dir)){
+        fs.mkdirSync(output_dir);
+    }    
+
     //   Iterate until TikTok's profile has no more data
     while (hasMore) {
         iterations++;
@@ -122,11 +129,12 @@ async function main() {
 const save_data = JSON.stringify(total_itemList)
 
 // write JSON string to a file
-fs.writeFile(argv.username + '-user.json', save_data, err => {
+var save_path = output_dir + argv.username + '-user.json'
+fs.writeFile(save_path, save_data, err => {
   if (err) {
     throw err
   }
-  console.log('JSON data is saved.')
+  console.log('JSON data is saved into: ' + save_path )
 })
 }
 
